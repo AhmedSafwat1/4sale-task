@@ -17,6 +17,15 @@ COPY ./src .
 # Install Laravel dependencies
 RUN composer install --no-dev --optimize-autoloader
 
+# Ensure storage directory has correct permissions
+RUN chown -R www-data:www-data /var/www/html/storage \
+    && chmod -R 775 /var/www/html/storage
+
+# Copy .env.example to .env
+RUN cp .env.example .env
+
+RUN php artisan key:generate
+
 # Expose the port the app runs on
 EXPOSE 9000
 
