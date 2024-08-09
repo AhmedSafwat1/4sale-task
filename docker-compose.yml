@@ -29,6 +29,17 @@ services:
     networks:
       - safwat-task
     entrypoint: ["sh", "-c", "chown -R www-data:www-data /var/www/html/storage && php-fpm"]
-    
+
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    container_name: php-test
+    volumes:
+      - app-data:/var/www/html
+    networks:
+      - safwat-task
+    command: ["vendor/bin/phpunit"]
+
 volumes:
   app-data:

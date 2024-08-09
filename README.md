@@ -21,6 +21,12 @@ To run unit test
 ./vendor/bin/phpunit
 ```
 
+By Docker
+
+```bash
+docker-compose run --rm test
+```
+
 ## run application
 
 to  run app without docker 

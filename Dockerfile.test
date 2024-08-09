@@ -15,7 +15,7 @@ WORKDIR /var/www/html
 COPY ./src .
 
 # Install Laravel dependencies
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --prefer-dist --no-progress --no-suggest --no-interaction
 
 # Ensure storage directory has correct permissions
 RUN chown -R www-data:www-data /var/www/html/storage \
@@ -28,9 +28,5 @@ RUN php artisan key:generate
 
 RUN php artisan cache:clear
 
-
-# Expose the port the app runs on
-EXPOSE 9000
-
 # Command to run the application
-CMD ["php-fpm"]
+ENTRYPOINT ["sh", "-c", "vendor/bin/phpunit"]
